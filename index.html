@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<title>FOCUS MOOD — Fresh Quality T-Shirts</title>
+<meta name="description" content="FOCUS MOOD — fresh quality t-shirts delivered to your door. Order online from Upper Bazar, Ranchi.">
+<style>
+*{box-sizing:border-box}
+:root{--ink:#111827;--muted:#667085;--bg:#f6f7fb;--card:#fff;--line:#e5e7eb;--brand:#111827;--accent:#16a34a;--danger:#dc2626;--shadow:0 10px 30px rgba(17,24,39,.08)}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.header{background:#111827;color:#fff;padding:22px 16px 18px;position:sticky;top:0;z-index:20;box-shadow:0 3px 18px #0002}
+.wrap{width:min(1100px,100% - 28px);margin:auto}
+.brand{font-size:28px;font-weight:900;letter-spacing:.5px}
+.tagline{margin:5px 0 0;color:#d1d5db;font-size:14px}
+.location{margin-top:9px;font-size:12px;color:#aeb7c6}
+.hero{padding:25px 0 12px}
+.hero h1{font-size:28px;margin:0 0 7px}
+.hero p{margin:0;color:var(--muted);line-height:1.5}
+.filters{display:flex;gap:8px;overflow:auto;padding:16px 0 5px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 15px;white-space:nowrap;color:#374151;font-weight:700}
+.filter.active{background:#111827;color:#fff;border-color:#111827}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px 0 100px}
+.product{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 15px #11182708;display:flex;flex-direction:column}
+.product img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#eee;display:block}
+.info{padding:12px;display:flex;flex-direction:column;flex:1}
+.name{font-weight:800;font-size:15px;line-height:1.3;margin-bottom:7px}
+.meta{color:var(--muted);font-size:12px;margin-bottom:8px}
+.price{font-size:19px;font-weight:900;margin-bottom:11px}
+.add{width:100%;border:0;border-radius:10px;background:#111827;color:#fff;padding:11px 8px;font-weight:800;transition:.18s}
+.add:active{transform:scale(.97)}
+.add.added{background:var(--accent)}
+.cart-fab,.wa-fab{position:fixed;right:16px;border:0;z-index:30;border-radius:999px;box-shadow:0 8px 25px #0003}
+.cart-fab{bottom:18px;width:58px;height:58px;background:#111827;color:#fff;font-size:24px}
+.cart-count{position:absolute;right:-2px;top:-3px;background:#ef4444;color:#fff;min-width:22px;height:22px;padding:2px 6px;border-radius:99px;font-size:12px;font-weight:900}
+.wa-fab{bottom:88px;background:#16a34a;color:#fff;padding:12px 15px;font-weight:800;text-decoration:none}
+.modal{position:fixed;inset:0;background:#0008;z-index:50;display:none;align-items:flex-end;justify-content:center}
+.modal.open{display:flex}
+.sheet{background:#fff;width:min(600px,100%);max-height:92vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-18px;background:#fff;padding:4px 0 14px;z-index:2}
+.sheet h2{margin:0;font-size:22px}
+.close{border:0;background:#f1f5f9;border-radius:50%;width:38px;height:38px;font-size:22px}
+.cart-row{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-row img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+.cart-name{font-size:14px;font-weight:800}
+.cart-price{font-size:13px;color:var(--muted);margin-top:4px}
+.qty{display:flex;align-items:center;gap:7px;margin-top:8px}
+.qty button{width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:8px;font-weight:900}
+.remove{border:0;background:none;color:var(--danger);font-size:12px;margin-top:5px;padding:0}
+.row-total{font-weight:900;font-size:14px;white-space:nowrap}
+.total{display:flex;justify-content:space-between;font-size:20px;font-weight:900;padding:17px 0}
+.primary{width:100%;padding:13px;border:0;border-radius:11px;background:#111827;color:#fff;font-weight:900}
+.primary:disabled{opacity:.45;cursor:not-allowed}
+.form{display:none;margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+.form.show{display:block}
+label{display:block;font-size:13px;font-weight:800;margin:12px 0 6px}
+input,textarea{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:12px;outline:none;background:#fff}
+input:focus,textarea:focus{border-color:#111827;box-shadow:0 0 0 3px #11182712}
+textarea{min-height:90px;resize:vertical}
+.note{font-size:12px;color:var(--muted);line-height:1.5;margin:12px 0}
+.success{display:none;text-align:center;padding:28px 8px}
+.success.show{display:block}
+.success .check{font-size:48px}
+.success h2{margin:8px 0}
+.wa-link{display:inline-block;margin-top:10px;background:#16a34a;color:#fff;text-decoration:none;padding:12px 16px;border-radius:10px;font-weight:900}
+footer{padding:25px 0 100px;color:var(--muted);font-size:12px;text-align:center}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.hero h1{font-size:34px}.modal{align-items:center}.sheet{border-radius:22px;max-height:88vh}.wa-fab{right:88px;bottom:18px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="wrap">
+    <div class="brand">FOCUS MOOD</div>
+    <div class="tagline">Fresh quality t-shirts delivered to your door</div>
+    <div class="location">📍 Upper Bazar, Ranchi, Jharkhand</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Fresh styles. Easy ordering.</h1>
+    <p>Browse our collection, add your favorites to cart, and place an order. We’ll contact you on WhatsApp to confirm availability and delivery.</p>
+    <div class="filters" id="filters"></div>
+  </section>
+  <section class="grid" id="products"></section>
+</main>
+
+<a class="wa-fab" href="https://wa.me/916200263007" target="_blank" rel="noopener">💬 WhatsApp</a>
+<button class="cart-fab" id="cartBtn" aria-label="Open cart">🛒<span class="cart-count" id="cartCount">0</span></button>
+
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="sheet-head">
+      <h2 id="cartTitle">Your Cart</h2>
+      <button class="close" id="closeBtn" aria-label="Close">×</button>
+    </div>
+    <div id="cartView">
+      <div id="cartItems"></div>
+      <div class="total"><span>Grand Total</span><span id="grandTotal">₹0</span></div>
+      <button class="primary" id="checkoutBtn" disabled>Place Order</button>
+      <p class="note">No online payment is taken. After you place the order, FOCUS MOOD will contact you on WhatsApp to confirm availability, pricing and delivery.</p>
+    </div>
+
+    <form class="form" id="orderForm">
+      <h3>Delivery Details</h3>
+      <label for="customerName">Customer Name *</label>
+      <input id="customerName" name="customerName" required autocomplete="name">
+      <label for="customerPhone">Phone Number *</label>
+      <input id="customerPhone" name="customerPhone" type="tel" required autocomplete="tel" inputmode="tel">
+      <label for="address">Delivery Address *</label>
+      <textarea id="address" name="address" required autocomplete="street-address"></textarea>
+      <label for="instructions">Special Instructions</label>
+      <textarea id="instructions" name="instructions" placeholder="Optional"></textarea>
+      <input type="hidden" name="orderSummary" id="orderSummary">
+      <input type="hidden" name="grandTotal" id="formTotal">
+      <input type="hidden" name="_subject" value="New FOCUS MOOD Website Order">
+      <button class="primary" type="submit">Submit Order</button>
+      <p class="note">Your order details will be sent securely through Formspree to the shop email.</p>
+    </form>
+
+    <div class="success" id="success">
+      <div class="check">✅</div>
+      <h2>Order placed!</h2>
+      <p>FOCUS MOOD will contact you on WhatsApp to confirm.</p>
+      <a class="wa-link" href="https://wa.me/916200263007" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<footer class="wrap">
+  <div>FOCUS MOOD · Upper Bazar, Ranchi, Jharkhand</div>
+  <div>📞 6200263007 · ✉️ godakiyasoni935@gmail.com</div>
+  <div style="margin-top:8px">Order collection only — no online payment.</div>
+</footer>
+
+<script>
+const PRODUCTS = [
+ {id:1,name:"Colorful Face Art T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/LdYspNbx/IMG-20260827-211556-734.jpg"},
+ {id:2,name:"Bloom After Ruin T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/PZR4DPvp/IMG-20260827-211556-977.jpg"},
+ {id:3,name:"Surfing Mouse T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/MxYsJx71/IMG-20260827-211556-993.jpg"},
+ {id:4,name:"Snow Leopard T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/SDmx9xS8/IMG-20260827-211557-055.jpg"},
+ {id:5,name:"Floral Deer T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/5xBpRfb3/IMG-20260827-211557-109.jpg"},
+ {id:6,name:"Eagle Wings T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/9k7KbqCM/IMG-20260827-211557-130.jpg"},
+ {id:7,name:"Skeleton Bull T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/SXq4G6Dp/IMG-20260827-211557-171.jpg"},
+ {id:8,name:"Skeleton Scorpion T-Shirt",detail:"180gsm",price:700,category:"clothes",img:"https://i.ibb.co/GvS6JLkS/IMG-20260827-211557-313.jpg"}
+];
+
+const STORAGE_KEY="focusMoodCart";
+let cart=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+let activeCategory="all";
+
+const $=id=>document.getElementById(id);
+const money=n=>"₹"+n.toLocaleString("en-IN");
+
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(cart));updateCartCount();renderCart();}
+function updateCartCount(){ $("cartCount").textContent=cart.reduce((s,x)=>s+x.qty,0); }
+
+function renderFilters(){
+ const cats=[...new Set(PRODUCTS.map(p=>p.category))];
+ $("filters").innerHTML=[["all","All"],...cats.map(c=>[c,c[0].toUpperCase()+c.slice(1)])]
+ .map(([v,t])=>`<button class="filter ${activeCategory===v?"active":""}" onclick="setCategory('${v}')">${t}</button>`).join("");
+}
+function setCategory(cat){activeCategory=cat;renderFilters();renderProducts();}
+function renderProducts(){
+ const list=activeCategory==="all"?PRODUCTS:PRODUCTS.filter(p=>p.category===activeCategory);
+ $("products").innerHTML=list.map(p=>{
+   const inCart=cart.find(x=>x.id===p.id);
+   return `<article class="product">
+    <img src="${p.img}" loading="lazy" alt="${p.name} product image">
+    <div class="info">
+      <div class="name">${p.name}</div>
+      <div class="meta">${p.detail} · ${p.category}</div>
+      <div class="price">${money(p.price)}</div>
+      <button class="add ${inCart?"added":""}" onclick="addToCart(${p.id})">${inCart?"✓ Added":"Add to Cart"}</button>
+    </div>
+   </article>`;
+ }).join("");
+}
+function addToCart(id){
+ const item=cart.find(x=>x.id===id);
+ if(item)item.qty++;
+ else {const p=PRODUCTS.find(x=>x.id===id);cart.push({id:p.id,qty:1});}
+ save();renderProducts();
+}
+function changeQty(id,delta){
+ const item=cart.find(x=>x.id===id); if(!item)return;
+ item.qty+=delta;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
+ save();renderProducts();
+}
+function removeItem(id){cart=cart.filter(x=>x.id!==id);save();renderProducts();}
+function renderCart(){
+ $("cartItems").innerHTML=cart.length?cart.map(x=>{
+  const p=PRODUCTS.find(y=>y.id===x.id), total=p.price*x.qty;
+  return `<div class="cart-row">
+    <img src="${p.img}" loading="lazy" alt="${p.name}">
+    <div><div class="cart-name">${p.name}</div><div class="cart-price">${money(p.price)} each</div>
+      <div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><b>${x.qty}</b><button onclick="changeQty(${p.id},1)">+</button></div>
+      <button class="remove" onclick="removeItem(${p.id})">Remove</button>
+    </div>
+    <div class="row-total">${money(total)}</div>
+  </div>`;
+ }).join(""):`<p style="text-align:center;color:#667085;padding:28px 0">Your cart is empty.</p>`;
+ const total=cart.reduce((s,x)=>s+PRODUCTS.find(p=>p.id===x.id).price*x.qty,0);
+ $("grandTotal").textContent=money(total);
+ $("checkoutBtn").disabled=!cart.length;
+ $("formTotal").value=money(total);
+ $("orderSummary").value=buildOrderSummary();
+}
+function buildOrderSummary(){
+ if(!cart.length)return "";
+ return cart.map(x=>{const p=PRODUCTS.find(y=>y.id===x.id);return `${p.name} | Qty: ${x.qty} | Price: ${money(p.price)} | Subtotal: ${money(p.price*x.qty)}`;}).join("\\n")
+ +`\\n\\nGrand Total: ${money(cart.reduce((s,x)=>s+PRODUCTS.find(p=>p.id===x.id).price*x.qty,0))}`;
+}
+function openCart(){ $("modal").classList.add("open");$("modal").setAttribute("aria-hidden","false");renderCart(); }
+function closeCart(){ $("modal").classList.remove("open");$("modal").setAttribute("aria-hidden","true"); }
+$("cartBtn").onclick=openCart;$("closeBtn").onclick=closeCart;
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeCart();});
+$("checkoutBtn").onclick=()=>{ $("orderForm").classList.add("show");$("customerName").focus(); };
+$("orderForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!cart.length)return;
+ const btn=e.target.querySelector('button[type="submit"]');
+ btn.disabled=true;btn.textContent="Sending order…";
+ $("orderSummary").value=buildOrderSummary();
+ try{
+   const res=await fetch("https://formspree.io/f/xoeqarrk",{method:"POST",body:new FormData(e.target),headers:{Accept:"application/json"}});
+   if(!res.ok)throw new Error("send failed");
+   cart=[];localStorage.removeItem(STORAGE_KEY);updateCartCount();renderProducts();
+   $("cartView").style.display="none";$("orderForm").style.display="none";$("success").classList.add("show");
+ }catch(err){
+   alert("We couldn't send the order right now. Please try again or contact FOCUS MOOD on WhatsApp.");
+   btn.disabled=false;btn.textContent="Submit Order";
+ }
+});
+renderFilters();renderProducts();updateCartCount();
+</script>
+</body>
+</html>
